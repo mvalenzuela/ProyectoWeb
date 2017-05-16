@@ -26,3 +26,11 @@
 
         // add Grade model
         rails generate scaffold Grade value:float person:references assignment:references
+
+Mati
+      rails g devise:install
+      rails generate model User first_name:string last_name:string email:string password:string
+      rails generate model Category title:string
+      rails generate model Document title:string text:text category references
+      rails generate scaffold_controller User first_name:string last_name:string email:string password:string 
+      rails generate scaffold_controller Category title:string
