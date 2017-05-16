@@ -1,24 +1,28 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Ruby version: 5.0.2
 
-Things you may want to cover:
+* Rails commands called
 
-* Ruby version
+        rails generate scaffold Person first_name:string last_name:string email:string
+        rails generate scaffold Course title:string code:string person:references
+        rails generate scaffold Enrollment person:references course:references
+        rails db:migrate
 
-* System dependencies
+        // Use teacher instead of person in Course controllers
+        rails generate scaffold_controller Course title code teacher --force
 
-* Configuration
+        // Use student instead of person in Enrollment controllers
+        rails generate scaffold_controller Enrollment student course --force
 
-* Database creation
+        // add quota to courses
+        rails generate migration AddQuotaToCourses
 
-* Database initialization
+        // add quota to courses
+        rails generate migration AddIsProfessorToPeople
 
-* How to run the test suite
+        // add Assignment model
+        rails generate scaffold Assignment title:string statement:text course:references
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+        // add Grade model
+        rails generate scaffold Grade value:float person:references assignment:references
