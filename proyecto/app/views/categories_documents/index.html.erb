@@ -14,8 +14,8 @@
   <tbody>
     <% @categories_documents.each do |categories_document| %>
       <tr>
-        <td><%= categories_document.category_title %></td>
-        <td><%= categories_document.document_title %></td>
+        <td><%= categories_document.category.title %></td>
+        <td><%= categories_document.document.title %></td>
         <td><%= link_to 'Show', categories_document %></td>
         <td><%= link_to 'Edit', edit_categories_document_path(categories_document) %></td>
         <td><%= link_to 'Destroy', categories_document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
