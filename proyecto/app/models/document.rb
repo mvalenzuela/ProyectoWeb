@@ -1,3 +1,4 @@
 class Document < ApplicationRecord
-  belongs_to :category
+  has_many :categories_documents
+  has_many :categories, through: :categories_documents
 end
