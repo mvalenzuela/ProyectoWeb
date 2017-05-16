@@ -24,6 +24,9 @@ class CategoriesDocumentsController < ApplicationController
   # POST /categories_documents
   # POST /categories_documents.json
   def create
+    puts "shit meeen"
+    puts categories_document_params[0]
+    puts "doble shit meen"
     @categories_document = CategoriesDocument.new(categories_document_params)
 
     respond_to do |format|
@@ -69,6 +72,13 @@ class CategoriesDocumentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def categories_document_params
+      document_id = params.require(:categories_document)[:document]
+      if document_id
+        document = Document.find(document_id)
+      else
+        document = nil
+      end
+
       params.require(:categories_document).permit(:category_id, :document_id)
     end
 end
