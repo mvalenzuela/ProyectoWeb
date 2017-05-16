@@ -10,3 +10,7 @@
       rails generate model Document title:string text:text category references
       rails generate scaffold_controller User first_name:string last_name:string email:string password:string
       rails generate scaffold_controller Category title:string
+
+      rails generate scaffold documentCategory Document:references Cotegory:references
+
+      rails db:migrate
