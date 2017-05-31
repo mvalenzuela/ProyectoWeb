@@ -4,6 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :edit_permissions
+  has_many :documents, through: :edit_permissions
+
+
   validates :first_name, length: { minimum: 3,  maximum: 30 }, presence: true
   validates :last_name, length: { minimum: 3,  maximum: 30 }, presence: true
 
@@ -14,5 +18,13 @@ class User < ApplicationRecord
   uniqueness: true,
   confirmation: true
   }
+
+  def to_s
+    if first_name and last_name
+      return first_name + ' ' + last_name
+    else
+      return ''
+    end
+  end
 
 end

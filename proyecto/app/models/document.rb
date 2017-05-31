@@ -2,6 +2,9 @@ class Document < ApplicationRecord
   has_many :categories_documents
   has_many :categories, through: :categories_documents
 
+  has_many :edit_permissions
+  has_many :permited_to_edit_users, through: :edit_permissions
+
   validates :title, {
       length: { minimum: 10,  maximum: 50 },
       presence: true,

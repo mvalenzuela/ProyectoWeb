@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Edit Permissions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Document</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @edit_permissions.each do |edit_permission| %>
+      <tr>
+        <td><%= edit_permission.document.title %></td>
+        <td><%= edit_permission.permited_to_edit_user.to_s %></td>
+        <td><%= link_to 'Show', edit_permission %></td>
+        <td><%= link_to 'Edit', edit_edit_permission_path(edit_permission) %></td>
+        <td><%= link_to 'Destroy', edit_permission, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Edit Permission', new_edit_permission_path %>

@@ -1,11 +1,12 @@
 class DocumentsController < ApplicationController
   before_action :authenticate_user!, :except => [:index, :show]
-  before_action :set_document, only: [:show, :edit, :update, :destroy]
+  before_action :set_document, only: [:show, :edit, :update, :destroy, :edit_permissions]
 
   # GET /documents
   # GET /documents.json
   def index
     @documents = Document.all
+    @is_user_logged_in = user_signed_in?
   end
 
   # GET /documents/1
@@ -14,6 +15,7 @@ class DocumentsController < ApplicationController
     if !@document.public and !user_signed_in?
       redirect_to new_user_session_url
     end
+    @users_permited_to_edit = @document.permited_to_edit_users
   end
 
   # GET /documents/new
@@ -23,6 +25,10 @@ class DocumentsController < ApplicationController
 
   # GET /documents/1/edit
   def edit
+    users_permited_to_edit = @document.permited_to_edit_users
+    if !(users_permited_to_edit.include?(current_user))
+      redirect_to action: "index"
+    end
   end
 
   # POST /documents
@@ -32,6 +38,10 @@ class DocumentsController < ApplicationController
 
     respond_to do |format|
       if @document.save
+        editPermission = EditPermission.new()
+        editPermission.document_id = @document.id
+        editPermission.user_id = current_user.id
+        editPermission.save
         format.html { redirect_to @document, notice: 'Document was successfully created.' }
         format.json { render :show, status: :created, location: @document }
       else
@@ -63,6 +73,11 @@ class DocumentsController < ApplicationController
       format.html { redirect_to documents_url, notice: 'Document was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def edit_permissions
+    #@document = Document.find_by_id(params[:document_id])
+    @users_permited_to_edit = @document.permited_to_edit_users
   end
 
   private

@@ -1,0 +1,30 @@
+<%= form_for(edit_permission) do |f| %>
+  <% if edit_permission.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(edit_permission.errors.count, "error") %> prohibited this edit_permission from being saved:</h2>
+
+      <ul>
+      <% edit_permission.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= f.hidden_field :document_id, :value => document.id %>
+
+    <%= f.label :users_id %>
+    <% users_ids = document.permited_to_edit_users.pluck(:id) %>
+    <% if users_ids.length > 0 %>
+      <% missing_users = User.where('id NOT IN (?)', document.permited_to_edit_users.pluck(:id)) %>
+    <% else %>
+      <% missing_users = User.all %>
+    <% end %>
+    <%= f.select :permited_to_edit_user, options_for_select(missing_users.all.map{|s|[s.to_s, s.id]}), {}, class: 'form-control' %>
+  </div>
+
+  <div class="actions form-group">
+    <%= f.submit class: 'btn btn-primary' %>
+  </div>
+<% end %>

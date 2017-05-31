@@ -14,14 +14,16 @@
 
   <tbody>
     <% @documents.each do |document| %>
-      <tr>
-        <td><%= document.title %></td>
-        <td><%= document.public %></td>
-        <td><%= markdown(document.text).html_safe %></td>
-        <td><%= link_to 'Show', document %></td>
-        <td><%= link_to 'Edit', edit_document_path(document) %></td>
-        <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <% if document.public or @is_user_logged_in %>
+        <tr>
+          <td><%= document.title %></td>
+          <td><%= document.public %></td>
+          <td><%= markdown(document.text).html_safe %></td>
+          <td><%= link_to 'Show', document %></td>
+          <td><%= link_to 'Edit', edit_document_path(document) %></td>
+          <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+        <% end %>
     <% end %>
   </tbody>
 </table>
