@@ -9,26 +9,53 @@
   </head>
 
   <body>
+    <% unless notice.nil? %>
+      <div class="alert alert-success notice"><%= notice %></div>
+    <% end %>
+    <% unless alert.nil? %>
+      <div class="alert alert-warning"><%= alert %></div>
+    <% end %>
+
     <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <li><%= link_to 'Categories', categories_path %></li>
-          <li><%= link_to 'Documents', documents_path %></li>
-          <li><%= link_to 'Categories Documents', categories_documents_path %></li>
-        </ul>
-        <p class="nav navbar-nav navbar-right">
-        <% if user_signed_in? %>
-          Logged in as <strong><%= current_user.email %></strong>.
-          <%= link_to content_tag("span", " Edit profile", :class => 'glyphicon glyphicon-edit'), edit_user_registration_path, :class => 'navbar-link' %> |
-          <%= link_to content_tag("span", " Log out", :class => 'glyphicon glyphicon-log-out'), destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
-        <% else %>
-          <%= link_to content_tag("span", " Sign up", :class => 'glyphicon glyphicon-user'), new_user_registration_path, :class => 'navbar-link' %> |
-          <%= link_to content_tag("span", " Login", :class => 'glyphicon glyphicon-log-in'), new_user_session_path, :class => 'navbar-link'  %>
-        <% end %>
-        </p>
+      <div class="container-fluid">
+
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            <%= link_to users_path, class: 'navbar-link' do %>
+                <i class='glyphicon glyphicon-home'></i>
+            <% end %>
+      			<%= link_to 'Categories', categories_path, class: 'navbar-brand' %>
+            <%= link_to 'Documents', documents_path, class: 'navbar-brand' %>
+            <%= link_to 'Categories Documents', categories_documents_path, class: 'navbar-brand' %>
+
+          </div>
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <form class="navbar-form navbar-left" action="<%= documents_path %>">
+              <div class="form-group">
+                <input type="text" class="form-control" name="title" placeholder="Search" value="<%= params[:title] %>">
+              </div>
+              <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+            <% if user_signed_in? %>
+              Logged in as <strong><%= current_user.email %></strong>.
+              <%= link_to content_tag("span", " Edit profile", :class => 'glyphicon glyphicon-edit'), edit_user_registration_path, :class => 'navbar-link' %> |
+              <%= link_to content_tag("span", " Log out", :class => 'glyphicon glyphicon-log-out'), destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+            <% else %>
+              <%= link_to content_tag("span", " Sign up", :class => 'glyphicon glyphicon-user'), new_user_registration_path, :class => 'navbar-link' %> |
+              <%= link_to content_tag("span", " Login", :class => 'glyphicon glyphicon-log-in'), new_user_session_path, :class => 'navbar-link'  %>
+            <% end %>
+            </ul>
+          </div>
+        </div>
       </div>
-    </div>
     </nav>
     <%= yield %>
   </body>

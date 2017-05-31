@@ -7,6 +7,9 @@ class DocumentsController < ApplicationController
   def index
     @documents = Document.all
     @is_user_logged_in = user_signed_in?
+    if params[:title]
+      @documents = @documents.where("lower(title) like ?", "%#{params[:title]}%")
+    end
   end
 
   # GET /documents/1
