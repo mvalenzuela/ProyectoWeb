@@ -1,4 +1,5 @@
 class CategoriesDocumentsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_categories_document, only: [:show, :edit, :update, :destroy]
 
   # GET /categories_documents
