@@ -5,5 +5,5 @@ Rails.application.routes.draw do
   resources :documents
   resources :categories_documents
 
-  root to: 'users#index'
+  root to: 'documents#index'
 end
