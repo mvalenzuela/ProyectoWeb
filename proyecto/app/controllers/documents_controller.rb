@@ -1,4 +1,5 @@
 class DocumentsController < ApplicationController
+  before_action :authenticate_user!, :except => [:index, :show]
   before_action :set_document, only: [:show, :edit, :update, :destroy]
 
   # GET /documents
@@ -10,6 +11,9 @@ class DocumentsController < ApplicationController
   # GET /documents/1
   # GET /documents/1.json
   def show
+    if !@document.public and !user_signed_in?
+      redirect_to new_user_session_url
+    end
   end
 
   # GET /documents/new
@@ -69,6 +73,6 @@ class DocumentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def document_params
-      params.require(:document).permit(:title, :text)
+      params.require(:document).permit(:title, :text, :public)
     end
 end
