@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(version: 20170531054800) do
   create_table "documents", force: :cascade do |t|
     t.string   "title"
     t.text     "text"
-    t.boolean  "public"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean  "public"
