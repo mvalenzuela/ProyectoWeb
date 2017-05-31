@@ -5,6 +5,9 @@ class DocumentsController < ApplicationController
   # GET /documents.json
   def index
     @documents = Document.all
+    if params[:title]
+      @documents = @documents.where("lower(title) like ?", "%#{params[:title]}%")
+    end
   end
 
   # GET /documents/1

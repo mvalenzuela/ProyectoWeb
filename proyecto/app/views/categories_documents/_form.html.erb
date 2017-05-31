@@ -18,7 +18,7 @@
 
   <div class="field">
     <%= f.label :document_id %>
-    <%= f.select :document_id, options_for_select(Category.all.map{|s|[s.title, s.id]}) %>
+    <%= f.select :document_id, options_for_select(Document.all.map{|s|[s.title, s.id]}) %>
   </div>
 
   <div class="actions">
