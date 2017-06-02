@@ -9,6 +9,6 @@ module ApplicationHelper
       footnotes: true,
       tables: true
     })
-    @markdown.render(content)
+    @markdown.render(content.to_s)
   end
 end

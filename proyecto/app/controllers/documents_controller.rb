@@ -83,7 +83,16 @@ class DocumentsController < ApplicationController
     @users_permited_to_edit = @document.permited_to_edit_users
   end
 
+  # Calls markdown application helper method.
+  def get_safe_html
+    @result = document_params[:content]
+    respond_to do |format|
+      format.json { render json: @result }
+    end
+  end
+
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_document
       @document = Document.find(params[:id])
@@ -91,6 +100,6 @@ class DocumentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def document_params
-      params.require(:document).permit(:title, :text, :public)
+      params.require(:document).permit(:title, :text, :public, :content)
     end
 end

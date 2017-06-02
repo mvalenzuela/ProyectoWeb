@@ -1,32 +1,60 @@
-<%= form_for(document) do |f| %>
-  <% if document.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(document.errors.count, "error") %> prohibited this document from being saved:</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+      <%= form_for(document) do |f| %>
+        <% if document.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(document.errors.count, "error") %> prohibited this document from being saved:</h2>
 
-      <ul>
-      <% document.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+            <ul>
+            <% document.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="field">
+          <%= f.label :title %>
+          <%= f.text_field :title %>
+        </div>
+
+        <div class="field">
+          <%= f.label :text %>
+          <%= f.text_area :text %>
+        </div>
+
+        <div class="field">
+          <%= f.label :public %>
+          <%= f.check_box :public %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit %>
+        </div>
       <% end %>
-      </ul>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
+    <div class="col-sm-6" id="safe_htlm">
+      <p id="html_safe_content">
+        <%= markdown(document.text).html_safe %>
+      </p>
+    </div>
   </div>
+</div>
 
-  <div class="field">
-    <%= f.label :text %>
-    <%= f.text_area :text %>
-  </div>
+<script>
+    $(document).on('keyup', '#document_text', function() {
+        var content = $("#document_text").val();
+        $.ajax({
+            url: "<%= get_safe_html_path %>",
+            data: {
+                document: document,
+                content: content
+            },
+            success: function(result){
+                $("#safe_htlm").innerHTML = <%= markdown(document.text).html_safe %>
+            }
+        });
 
-  <div class="field">
-    <%= f.label :public %>
-    <%= f.check_box :public %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+    });
+</script>
