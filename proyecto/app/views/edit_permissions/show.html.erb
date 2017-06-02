@@ -10,5 +10,5 @@
   <%= @edit_permission.permited_to_edit_user.to_s %>
 </p>
 
-<%= link_to 'Edit', edit_edit_permission_path(@edit_permission) %> |
-<%= link_to 'Back', edit_permissions_path %>
+<%= link_to 'Edit', edit_edit_permission_path(@edit_permission) , {:class => "btn btn-primary"} %>
+<%= link_to 'Back', edit_permissions_path, {:class => "btn btn-danger"} %>
