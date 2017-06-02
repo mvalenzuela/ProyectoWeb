@@ -7,8 +7,27 @@ class DocumentsController < ApplicationController
   def index
     @documents = Document.all
     @is_user_logged_in = user_signed_in?
+    show_editable_documents = params[:show_editable_documents]
     if params[:title]
       @documents = @documents.where("lower(title) like ?", "%#{params[:title]}%")
+    end
+    if @is_user_logged_in and show_editable_documents
+      @documents = current_user.documents
+    end
+    if !@is_user_logged_in and show_editable_documents
+      @documents = []
+    end
+  end
+
+  def editable_documents_index
+    @documents = Document.all
+    @is_user_logged_in = user_signed_in?
+    show_editable_documents = params[:show_editable_documents]
+    if params[:title]
+      @documents = @documents.where("lower(title) like ?", "%#{params[:title]}%")
+    end
+    if @is_user_logged_in
+      puts(current_user)
     end
   end
 
@@ -19,6 +38,20 @@ class DocumentsController < ApplicationController
       redirect_to new_user_session_url
     end
     @users_permited_to_edit = @document.permited_to_edit_users
+    @edit_permissions = EditPermission.where("document_id = ?", @document.id)
+    @edit_permission = EditPermission.new
+    @is_user_signed_in = user_signed_in?
+
+    if @is_user_signed_in
+      has_current_user_edit_permission = EditPermission.where("document_id = ? AND user_id = ?", @document.id, current_user.id)
+      if has_current_user_edit_permission.length == 0
+        @has_current_user_edit_permission = false
+      else
+        @has_current_user_edit_permission = true
+      end
+    else
+      @has_current_user_edit_permission = false
+    end
   end
 
   # GET /documents/new

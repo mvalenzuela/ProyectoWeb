@@ -1,7 +1,7 @@
 class EditPermissionsController < ApplicationController
   before_action :set_edit_permission, only: [:show, :edit, :update, :destroy]
   #attr_accessor :document
-  before_action :set_document
+  #before_action :set_document
 
   # GET /edit_permissions
   # GET /edit_permissions.json
@@ -27,7 +27,9 @@ class EditPermissionsController < ApplicationController
   # POST /edit_permissions
   # POST /edit_permissions.json
   def create
-    @edit_permission = EditPermission.new(edit_permission_params)
+    @edit_permission = EditPermission.new()
+    @edit_permission.document = Document.find(edit_permission_params[:document_id])
+    @edit_permission.permited_to_edit_user = User.find(edit_permission_params[:permited_to_edit_user])
 
     respond_to do |format|
       if @edit_permission.save
@@ -70,19 +72,12 @@ class EditPermissionsController < ApplicationController
       @edit_permission = EditPermission.find(params[:id])
     end
 
-    def set_document
-      @document = Document.find(params[:document_id])
-    end
+    #def set_document
+  #    @document = Document.find(params[:document_id])
+    #end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def edit_permission_params
-      document_id = params.require(:edit_permission)[:document]
-      params.require(:edit_permission).permit(:document_id, :user_id)
-      if document_id
-        document = Document.find(documnet_id)
-      else
-        document = nil
-      end
-      params.require(:edit_permission).permit().merge(:document => document)
+      params.require(:edit_permission).permit(:document_id, :permited_to_edit_user)
     end
 end
