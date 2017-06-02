@@ -7,14 +7,14 @@ class DocumentsController < ApplicationController
   def index
     @documents = Document.all
     @is_user_logged_in = user_signed_in?
-    show_editable_documents = params[:show_editable_documents]
+    @show_editable_documents = params[:show_editable_documents]
     if params[:title]
       @documents = @documents.where("lower(title) like ?", "%#{params[:title]}%")
     end
-    if @is_user_logged_in and show_editable_documents
+    if @is_user_logged_in and @show_editable_documents
       @documents = current_user.documents
     end
-    if !@is_user_logged_in and show_editable_documents
+    if !@is_user_logged_in and @show_editable_documents
       @documents = []
     end
   end
