@@ -3,8 +3,9 @@ Rails.application.routes.draw do
   resources :users
   resources :categories
   resources :documents do
-    get 'edit_permissions', to: 'documents#edit_permissions', on: :member
+  #  get 'edit_permissions', to: 'documents#edit_permissions', on: :member
   end
   resources :categories_documents
   resources :edit_permissions
+  root to: 'documents#index'
 end
