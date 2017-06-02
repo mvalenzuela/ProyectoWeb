@@ -15,17 +15,17 @@
         <% end %>
 
         <div class="field">
-          <%= f.label :title %>
-          <%= f.text_field :title %>
+          <%= f.label :title, class: 'form-group' %>
+          <%= f.text_field :title, class: 'form-control' %>
         </div>
 
         <div class="field">
-          <%= f.label :text %>
-          <%= f.text_area :text %>
+          <%= f.label :text, class: 'form-group' %>
+          <%= f.text_area :text, class: 'form-control' %>
         </div>
 
         <div class="field">
-          <%= f.label :public %>
+          <%= f.label :public, class: 'form-group' %>
           <%= f.check_box :public %>
         </div>
 

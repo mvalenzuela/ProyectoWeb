@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Categories Documents</h1>
 
 <table class="table">
@@ -16,9 +14,9 @@
       <tr>
         <td><%= categories_document.category.title %></td>
         <td><%= categories_document.document.title %></td>
-        <td><%= link_to 'Show', categories_document %></td>
-        <td><%= link_to 'Edit', edit_categories_document_path(categories_document) %></td>
-        <td><%= link_to 'Destroy', categories_document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', categories_document, {:class => "btn btn-info"} %></td>
+        <td><%= link_to 'Edit', edit_categories_document_path(categories_document), {:class => "btn btn-success"} %></td>
+        <td><%= link_to 'Destroy', categories_document, method: :delete, class: "btn btn-danger" ,data: { confirm: 'Are you sure?' }%></td>
       </tr>
     <% end %>
   </tbody>
