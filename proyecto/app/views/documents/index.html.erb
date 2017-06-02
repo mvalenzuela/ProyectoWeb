@@ -21,10 +21,10 @@
           <% else %>
             <td><%= markdown(document.text).html_safe %></td>
           <% end %>
-          <td><%= link_to 'Show', document %></td>
+          <td><%= link_to 'Show', document, {:class => "btn btn-info"} %></td>
           <% if @show_editable_documents %>
-            <td><%= link_to 'Edit', edit_document_path(document) %></td>
-            <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= link_to 'Edit', edit_document_path(document), {:class => "btn btn-success"} %></td>
+            <td><%= link_to 'Destroy', document, method: :delete, class: "btn btn-danger" , data: { confirm: 'Are you sure?' }%></td>
           <% end %>
         </tr>
         <% end %>
