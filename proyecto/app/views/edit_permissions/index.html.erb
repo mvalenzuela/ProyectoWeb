@@ -14,9 +14,11 @@
       <tr>
         <td><%= edit_permission.document.title %></td>
         <td><%= edit_permission.permited_to_edit_user.to_s %></td>
-        <td><%= link_to 'Show', edit_permission, {:class => "btn btn-info"} %></td>
-        <td><%= link_to 'Edit', edit_edit_permission_path(edit_permission), {:class => "btn btn-success"} %></td>
-        <td><%= link_to 'Destroy', edit_permission, method: :delete, class: "btn btn-danger",   data: { confirm: 'Are you sure?'}%></td>
+        <td>
+          <%= link_to 'Show', edit_permission, {:class => "btn btn-info"} %>
+          <%= link_to 'Edit', edit_edit_permission_path(edit_permission), {:class => "btn btn-success"} %>
+          <%= link_to 'Destroy', edit_permission, method: :delete, class: "btn btn-danger",   data: { confirm: 'Are you sure?'}%>
+        </td>
       </tr>
     <% end %>
   </tbody>
