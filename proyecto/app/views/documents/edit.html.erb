@@ -1,6 +1,40 @@
-<h1>Editing Document</h1>
-
-<%= render 'form', document: @document %>
+<div class="row">
+  <div class="col-lg-6">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        Document Edit
+      </div>
+      <div class="panel-body">
+        <%= render 'form', document: @document %>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Document Text Preview
+      </div>
+      <div class="panel-boby" id="markdown-body" style="min-height: 300px">
+        <%= @body %>
+      </div>
+    </div>
+  </div>
+</div>
 
 <%= link_to 'Show', @document, {:class => "btn btn-primary"} %> |
 <%= link_to 'Back', documents_path, {:class => "btn btn-danger"} %>
+
+<script>
+    $('#document_text').on('input',function(e){
+
+        $.ajax({
+            type:"GET",
+            url:"<%= get_safe_html_documents_path %>",
+            dataType:"json",
+            data: {document_body: $('#document_text').val()},
+            success: function(result){
+                $('#markdown-body').html(result.body);
+            }
+        });
+    });
+</script>

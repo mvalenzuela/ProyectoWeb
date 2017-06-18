@@ -21,7 +21,7 @@
 
         <div class="field">
           <%= f.label :text, class: 'form-group' %>
-          <%= f.text_area :text, class: 'form-control' %>
+          <%= f.text_area :text, class: 'form-control', rows: '15' %>
         </div>
 
         <div class="field">
@@ -34,11 +34,6 @@
         </div>
       <% end %>
     </div>
-    <div class="col-sm-6" id="safe_htlm">
-      <p id="html_safe_content">
-        <%= markdown(document.text).html_safe %>
-      </p>
-    </div>
   </div>
 </div>
 
@@ -46,7 +41,7 @@
     $(document).on('keyup', '#document_text', function() {
         var content = $("#document_text").val();
         $.ajax({
-            url: "<%= get_safe_html_path %>",
+            url: "<%= get_safe_html_documents_path %>",
             data: {
                 document: document,
                 content: content

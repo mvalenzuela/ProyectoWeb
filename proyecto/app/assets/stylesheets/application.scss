@@ -19,6 +19,11 @@
    margin: 10px;
    padding-left: 30px;
 }
+
+#document-text {
+  height: auto;
+}
+
 @gray-base:         #000;
 @gray-darker:       lighten(@gray-base, 13.5%); // #222
 @gray-dark:         lighten(@gray-base, 20%);   // #333

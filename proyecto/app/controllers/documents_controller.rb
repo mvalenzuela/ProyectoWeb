@@ -65,6 +65,9 @@ class DocumentsController < ApplicationController
     if !(users_permited_to_edit.include?(current_user))
       redirect_to action: "index"
     end
+    document_raw = @document.text != nil ? @document.text : ''
+    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
+    @body = markdown.render(document_raw).html_safe
   end
 
   # POST /documents
@@ -118,10 +121,11 @@ class DocumentsController < ApplicationController
 
   # Calls markdown application helper method.
   def get_safe_html
-    @result = document_params[:content]
-    respond_to do |format|
-      format.json { render json: @result }
-    end
+    document_body = params[:document_body]
+    document_raw = document_body != nil ? document_body : ''
+    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
+    @body = markdown.render(document_raw).html_safe
+    render :json => { :success => true, :body => @body }
   end
 
   private

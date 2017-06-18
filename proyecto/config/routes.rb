@@ -4,9 +4,10 @@ Rails.application.routes.draw do
   resources :users
   resources :categories
   resources :documents do
-  #  get 'edit_permissions', to: 'documents#edit_permissions', on: :member
+    collection do
+      get 'get_safe_html'
+    end
   end
-  get 'get_safe_html', to: 'documents#get_safe_html'
 
   resources :categories_documents
   resources :edit_permissions
