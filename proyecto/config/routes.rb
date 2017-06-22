@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     end
   end
   resources :suggestions
+  resources :likes
   resources :categories_documents
   resources :edit_permissions
+  post 'documents/ajaxFunction'
 end
