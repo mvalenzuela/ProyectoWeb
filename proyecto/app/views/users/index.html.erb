@@ -16,9 +16,11 @@
         <td><%= user.first_name %></td>
         <td><%= user.last_name %></td>
         <td><%= user.email %></td>
-        <td><%= link_to 'Show', user, {:class => "btn btn-info"} %></td>
-        <td><%= link_to 'Edit', edit_user_path(user), {:class => "btn btn-success"} %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' }%></td>
+        <td>
+          <%= link_to 'Show', user, {:class => "btn btn-info"} %>
+          <%= link_to 'Edit', edit_user_path(user), {:class => "btn btn-success"} %>
+          <%= link_to 'Destroy', user, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' }%>
+        </td>
       </tr>
     <% end %>
   </tbody>
