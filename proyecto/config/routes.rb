@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root to: 'documents#index'
-  
+
   devise_scope :user do
     get "/sign_in" => "devise/sessions#new" # custom path to login/sign_in
     get "/sign_up" => "devise/registrations#new", as: "new_user_registration" # custom path to sign_up/registration
@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'users/sign_up' => redirect('users/sign_in')
   get 'users/new' => redirect('users/sign_in')
 
+  devise_for :users
   resources :users
   resources :categories
   resources :documents do
