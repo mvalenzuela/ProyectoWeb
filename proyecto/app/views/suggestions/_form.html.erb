@@ -1,0 +1,24 @@
+<%= form_for(suggestion) do |f| %>
+  <% if suggestion.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(suggestion.errors.count, "error") %> prohibited this suggestion from being saved:</h2>
+
+      <ul>
+      <% suggestion.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :document_id, value: params['document_id'] %>
+
+  <div class="field">
+    <%= f.label :text %>
+    <%= f.text_area :text, rows: '15' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-lg-6">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        New Suggestion
+      </div>
+      <div class="panel-body">
+        <%= render 'form', suggestion: @suggestion, document: @document %>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Document
+      </div>
+      <div class="panel-boby" style="min-height: 300px">
+        <%= @body %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<%= link_to 'Back', suggestions_path %>

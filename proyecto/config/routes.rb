@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :suggestions
   root to: 'documents#index'
   devise_for :users
   resources :users
@@ -8,8 +9,6 @@ Rails.application.routes.draw do
       get 'get_safe_html'
     end
   end
-
   resources :categories_documents
   resources :edit_permissions
-  root to: 'documents#index'
 end

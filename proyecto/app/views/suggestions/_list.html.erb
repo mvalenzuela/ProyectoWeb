@@ -1,0 +1,23 @@
+<table>
+  <thead>
+  <tr>
+    <th>Document</th>
+    <th>User</th>
+    <th>Status</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @suggestions.each do |suggestion| %>
+      <tr>
+        <td><%= suggestion.document.title %></td>
+        <td><%= suggestion.user.to_s %></td>
+        <td><%= suggestion.status %></td>
+        <td><%= link_to 'Show', suggestion %></td>
+        <td><%= link_to 'Reject', suggestion, method: suggestion.reject %></td>
+        <td><%= link_to 'Implement', suggestion, method: suggestion.implement %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

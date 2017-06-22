@@ -25,6 +25,8 @@
           <% if @show_editable_documents %>
             <td><%= link_to 'Edit', edit_document_path(document), {:class => "btn btn-success"} %></td>
             <td><%= link_to 'Destroy', document, method: :delete, class: "btn btn-danger" , data: { confirm: 'Are you sure?' }%></td>
+          <% else %>
+            <td><%= link_to 'Suggest Changes', {:controller => "suggestions", :action => "new", :document_id => document.id }, {:class => "btn btn-success"} %></td>
           <% end %>
         </tr>
         <% end %>

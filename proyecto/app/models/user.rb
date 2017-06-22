@@ -8,8 +8,8 @@ class User < ApplicationRecord
   has_many :documents, through: :edit_permissions
 
 
-  validates :first_name, length: { minimum: 3,  maximum: 30 }, presence: true
-  validates :last_name, length: { minimum: 3,  maximum: 30 }, presence: true
+    validates :first_name, length: { minimum: 3,  maximum: 30 }, presence: true
+    validates :last_name, length: { minimum: 3,  maximum: 30 }, presence: true
 
   validates :email, {
   email: true,
