@@ -16,8 +16,9 @@ Rails.application.routes.draw do
       get 'get_safe_html'
     end
   end
-
+  resources :likes
   resources :categories_documents
   resources :edit_permissions
   root to: 'documents#index'
+  post 'documents/ajaxFunction'
 end

@@ -16,3 +16,30 @@
 //= require_tree .
 //= require bootstrap-sprockets
 
+function likeEvent(e) {
+  var target = e.target;
+  var value = target.value;
+  if ( target.classList.contains('active') ){
+    target.classList.remove('active');
+    target.blur();
+  }
+
+  else{
+    target.classList.add('active');
+    target.blur();
+  }
+  var result
+  $.ajax({
+          type: "POST",
+          url: "ajaxFunction",
+          data: {
+          "document_id" : value
+          },
+          datatype: 'json',
+          success: function(json){
+            likes = json["likes"]
+            console.log("the value of x is:", json["hola"]);
+            target.innerHTML = likes;
+          }
+      })
+}

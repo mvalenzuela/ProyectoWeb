@@ -1,5 +1,5 @@
 class DocumentsController < ApplicationController
-  before_action :authenticate_user!, :except => [:index, :show]
+  before_action :authenticate_user!, :except => [:index, :show, :ajaxFunction]
   before_action :set_document, only: [:show, :edit, :update, :destroy, :edit_permissions]
 
   # GET /documents
@@ -51,6 +51,13 @@ class DocumentsController < ApplicationController
       end
     else
       @has_current_user_edit_permission = false
+    end
+    #likes custom
+    @users_interested = @document.interested_users
+    if @users_interested.include?(current_user)
+      @is_user_interested_in_current_document = true
+    else
+      @is_user_interested_in_current_document = false
     end
   end
 
@@ -126,6 +133,25 @@ class DocumentsController < ApplicationController
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
     @body = markdown.render(document_raw).html_safe
     render :json => { :success => true, :body => @body }
+  end
+
+  def ajaxFunction
+    puts "holoh"
+    valor = params['document_id']
+    if Like.exists?(interested_user: current_user.id, liked_document: valor)
+      Like.where(interested_user: current_user.id, liked_document: valor).destroy_all
+    else
+      @Like = Like.new
+      @Like.interested_user = current_user
+      @Like.liked_document = Document.find(valor)
+      @Like.save
+    end
+    document = Document.find(valor)
+    likes = document.interested_users.count
+    answer = {"likes" => likes}
+    respond_to do |format|
+      format.json { render json: answer }  # respond with the created JSON object
+    end
   end
 
   private

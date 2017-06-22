@@ -6,7 +6,8 @@ class User < ApplicationRecord
 
   has_many :edit_permissions
   has_many :documents, through: :edit_permissions
-
+  has_many :likes
+  has_many :liked_document, through: :likes
 
   validates :first_name, length: { minimum: 3,  maximum: 30 }, presence: true
   validates :last_name, length: { minimum: 3,  maximum: 30 }, presence: true
