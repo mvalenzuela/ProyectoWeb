@@ -12,3 +12,10 @@
       rails generate scaffold_controller Category title:string
       rails generate model Categories_documents category:references document:references
       rails generate scaffold_controller Categories_documents category:references document:references
+
+comandos utiles
+	rails g devise:install
+	rails g devise User
+	(agregar a manopla los first_name y last_name en la migracion)
+	rake db:migrate
+	rails g devise:views

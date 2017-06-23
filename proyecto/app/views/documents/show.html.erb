@@ -28,11 +28,6 @@
   </tbody>
 </table>
 
-
-<% if @is_user_signed_in and @has_current_user_edit_permission %>
-<button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#add-enrollment-modal">Give edit permission to user</button>
-<% end %>
-
 <div id="add-enrollment-modal" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -80,6 +75,15 @@
     </div>
   </div>
 </div>
-
+<% if @is_user_signed_in %>
+  <% if @is_user_interested_in_current_document %>
+    <button type="button" onclick="likeEvent(event)" value="<%=@document.id%>" class="btn btn-link glyphicon glyphicon-heart active"><%=@users_interested.count%></button>
+  <% else %>
+    <button type="button" onclick="likeEvent(event)" value="<%=@document.id%>" class="btn btn-link glyphicon glyphicon-heart gray"><%=@users_interested.count%></button>
+  <% end %>
+<% end %>
+<% if @is_user_signed_in and @has_current_user_edit_permission %>
+  <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#add-enrollment-modal">Give edit permission to user</button>
+<% end %>
 <%= link_to 'Edit', edit_document_path(@document), {:class => "btn btn-primary"} %>
 <%= link_to 'Back', documents_path, {:class => "btn btn-danger"} %>

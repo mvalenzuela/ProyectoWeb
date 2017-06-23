@@ -5,7 +5,6 @@
     <tr>
       <th>Title</th>
       <th>Public</th>
-      <th>Text</th>
       <th colspan="115"></th>
     </tr>
   </thead>
@@ -16,18 +15,13 @@
         <tr>
           <td><%= document.title %></td>
           <td><%= document.public %></td>
-          <% if document.text.length > 20 %>
-            <td><%=  markdown(document.text[0, 20]).html_safe %></td>
+          <td><%= link_to 'Show', document, {:class => "btn btn-info"} %></td>
+          <% if @show_editable_documents %>
+            <td><%= link_to 'Edit', edit_document_path(document), {:class => "btn btn-success"} %></td>
+            <td><%= link_to 'Destroy', document, method: :delete, class: "btn btn-danger" , data: { confirm: 'Are you sure?' }%></td>
           <% else %>
-            <td><%= markdown(document.text).html_safe %></td>
+            <td><%= link_to 'Suggest Changes', {:controller => "suggestions", :action => "new", :document_id => document.id }, {:class => "btn btn-success"} %></td>
           <% end %>
-          <td>
-            <%= link_to 'Show', document, {:class => "btn btn-info"} %>
-            <% if @show_editable_documents %>
-              <%= link_to 'Edit', edit_document_path(document), {:class => "btn btn-success"} %>
-              <%= link_to 'Destroy', document, method: :delete, class: "btn btn-danger" , data: { confirm: 'Are you sure?' }%>
-          <% end %>
-          </td>
         </tr>
         <% end %>
     <% end %>
