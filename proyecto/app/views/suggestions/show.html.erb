@@ -2,7 +2,7 @@
 
 <p>
   <strong>Document:</strong>
-  <%= @suggestion.document %>
+  <%= @suggestion.document.title %>
 </p>
 
 <p>
@@ -16,14 +16,11 @@
 </p>
 
 <p>
-  <strong>Text:</strong>
-  <%= @suggestion.text %>
-</p>
-
-<p>
   <strong>Status:</strong>
   <%= @suggestion.status %>
 </p>
-
-<%= link_to 'Edit', edit_suggestion_path(@suggestion) %> |
+<% if @has_user_edit_permission %>
+<%= button_to "Implemented", { :controller => "suggestions", :action => "change_status", :suggestion_id => @suggestion.id, :suggestion_status => "Implemented"}, {class: 'btn btn-success'} %>
+<%= button_to "Rejected", { :controller => "suggestions", :action => "change_status", :suggestion_id => @suggestion.id, :suggestion_status => "Rejected"}, {class: 'btn btn-danger'} %>
+<% end %>
 <%= link_to 'Back', suggestions_path %>

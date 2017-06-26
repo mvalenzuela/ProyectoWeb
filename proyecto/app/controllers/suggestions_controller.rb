@@ -1,15 +1,26 @@
 class SuggestionsController < ApplicationController
   before_action :set_suggestion, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!
   # GET /suggestions
   # GET /suggestions.json
   def index
     @suggestions = Suggestion.all
+    if params[:status] and params[:status] != "All"
+      @suggestions = @suggestions.where("status like ?", "%#{params[:status]}%")
+    end
   end
 
   # GET /suggestions/1
   # GET /suggestions/1.json
   def show
+    document = @suggestion.document
+    user = current_user
+    editable_documents = user.documents
+    if editable_documents.include?(document)
+      @has_user_edit_permission = true
+    else
+      @has_user_edit_permission = false
+    end
   end
 
   # GET /suggestions/new
@@ -38,6 +49,15 @@ class SuggestionsController < ApplicationController
       end
     end
   end
+
+  def change_status
+    suggestion = Suggestion.find(params[:suggestion_id])
+    suggestion.status = params[:suggestion_status]
+    suggestion.save
+    @suggestions = Suggestion.all
+    render action: "index"
+  end
+
 
   private
     # Reject suggestion updating status

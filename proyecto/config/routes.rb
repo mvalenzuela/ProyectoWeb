@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     get "/sign_up" => "devise/registrations#new", as: "new_user_registration" # custom path to sign_up/registration
   end
   get 'users/sign_up' => redirect('users/sign_in')
+  get 'sign_up' => redirect('users/sign_in')
   get 'users/new' => redirect('users/sign_in')
 
   devise_for :users
@@ -21,4 +22,5 @@ Rails.application.routes.draw do
   resources :categories_documents
   resources :edit_permissions
   post 'documents/ajaxFunction'
+  post "suggestions/change_status" => "suggestions#change_status"
 end

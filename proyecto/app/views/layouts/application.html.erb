@@ -16,7 +16,10 @@
             <%= link_to content_tag("span", "", :class => 'glyphicon glyphicon-home'), root_path, class: 'navbar-brand' %>
             <%= link_to 'Categories', categories_path, class: 'navbar-text' %>
             <%= link_to 'Documents', documents_path, class: 'navbar-text' %>
+            <% if user_signed_in? %>
             <%= link_to 'My Documents', documents_path(:show_editable_documents => true), class: 'navbar-text' %>
+            <%= link_to 'Suggestions', suggestions_path, class: 'navbar-text' %>
+            <% end %>
             <%= link_to 'Categories Documents', categories_documents_path, class: 'navbar-text' %>
           </div>
           <div class="container-fluid">

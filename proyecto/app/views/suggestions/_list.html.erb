@@ -1,4 +1,4 @@
-<table>
+<table class ="table table-bordered">
   <thead>
   <tr>
     <th>Document</th>
@@ -14,9 +14,7 @@
         <td><%= suggestion.document.title %></td>
         <td><%= suggestion.user.to_s %></td>
         <td><%= suggestion.status %></td>
-        <td><%= link_to 'Show', suggestion %></td>
-        <td><%= link_to 'Reject', suggestion, method: suggestion.reject %></td>
-        <td><%= link_to 'Implement', suggestion, method: suggestion.implement %></td>
+        <td><%= link_to 'Show', suggestion, {:class => "btn btn-info"} %></td>
       </tr>
   <% end %>
   </tbody>

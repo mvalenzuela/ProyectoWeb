@@ -27,7 +27,10 @@
     <% end %>
   </tbody>
 </table>
-
+<% if @suggestions.count > 0 %>
+  <h3>Suggestions</h3>
+  <%= render '/suggestions/list' %>
+<% end %>
 <div id="add-enrollment-modal" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">

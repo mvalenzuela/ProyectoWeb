@@ -1,9 +1,17 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Suggestions</h1>
-
+<h3>Filter By:</h3>
+<form action="<%= suggestions_path %>">
+  <div class="form-group">
+    <select name="status">
+       <option value="Pending">Pending</option>
+       <option value="Implemented">Implemented</option>
+       <option value="Rejected">Rejected</option>
+       <option value="All">All</option>
+    </select>
+    <button type="submit" class="btn btn-info active">Filter</button>
+  </div>
+</form>
 <%= render 'list' %>
-
 <br>
-
-<%= link_to 'New Suggestion', new_suggestion_path %>

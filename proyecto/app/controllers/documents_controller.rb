@@ -59,6 +59,8 @@ class DocumentsController < ApplicationController
     else
       @is_user_interested_in_current_document = false
     end
+    @suggestions = Suggestion.where("document_id = ?", @document.id)
+
   end
 
   # GET /documents/new
@@ -136,7 +138,6 @@ class DocumentsController < ApplicationController
   end
 
   def ajaxFunction
-    puts "holoh"
     valor = params['document_id']
     if Like.exists?(interested_user: current_user.id, liked_document: valor)
       Like.where(interested_user: current_user.id, liked_document: valor).destroy_all
